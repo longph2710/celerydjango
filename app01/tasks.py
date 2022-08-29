@@ -24,15 +24,15 @@ def xsum(numbers):
 
 @shared_task
 def perform_backup(database_id, url):
-    time_start = datetime.now().strftime("%d-%m-%YT%H:%M:%S+07:00")
-    time.sleep(30)
-    backup_id = "backup_%s" % database_id
-    time_finish = datetime.now().strftime("%d-%m-%YT%H:%M:%S+07:00")
-    data = json.loads({
+    time_start = datetime.now().strftime("%Y-%m-%dT%H:%M:%S+07:00")
+    time.sleep(5)
+    backup_id = database_id
+    time_finish = datetime.now().strftime("%Y-%m-%dT%H:%M:%S+07:00")
+    data = {
         "database_id": database_id,
         "backup_id": backup_id,
         "time_start": time_start,
         "time_finish": time_finish
-    })
+    }
     print(data)
-    requests.post(url=url, data=data)
+    requests.post(url=url, json=data)
